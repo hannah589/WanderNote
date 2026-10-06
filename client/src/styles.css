@@ -346,17 +346,10 @@ section{
   outline-offset: 2px;
 }
 
-/*
+
 .form-control:invalid {
   border-color: red;
 }
-
-.is-invalid {
-  color: #dc2626;
-  font-size: 0.875rem;
-  margin-top: 5px;
-}
-*/
 
 
 /* Mobile */
