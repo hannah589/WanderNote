@@ -1,0 +1,38 @@
+.heading{
+  display: flex;
+  align-items: center;
+  span{
+    margin-left: -.4em;
+  }
+}
+
+.destination_content{
+  display: grid;
+  gap: 2em;
+  grid-template-columns: 1.8fr 1.2fr;
+}
+
+.description {
+  white-space: pre-line;
+}
+
+.map{
+  text-align: center;
+}
+
+.externalLink{
+  display: flex;
+  align-items: center;
+  margin: 8px;
+  text-decoration: underline;
+}
+
+.urlList {
+  list-style-type: disc !important;
+  list-style-position: outside;
+  padding-left: 20px;
+}
+
+.urlList li {
+  list-style-type: disc !important;
+}

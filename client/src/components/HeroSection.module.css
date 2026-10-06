@@ -1,0 +1,22 @@
+.bg{
+  background: no-repeat center/cover;
+  height: 400px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.content{
+  height: 30vh;
+  width: 500px;
+  display: flex;
+  flex-direction: 
+  column;
+  gap: 16px;
+  padding: 3rem;
+  background: var;
+
+  h2{
+    color: #fff;
+  }
+}
