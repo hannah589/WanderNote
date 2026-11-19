@@ -44,16 +44,16 @@ module.exports = {
     }
   },
 
-  //GET: Destination by id
-  //route: api/products/:id
   async getUserById(req, res) {
     try {
       // Get the id(string) from params and typecast to number in db
       let id = Number(req.params.id);
       console.log(id);
-      // To get a destination by id we use. the findByPk() method
-      // pass through the id we wish to find.
-      const user = await User.findByPk(id);
+      // To user by id we use the findByPk() method
+      // pass through the id we wish to find and exclude the password
+      const user = await User.findByPk(id, {
+        attributes: { exclude: ["password"] }
+      });
       // check our destination.
       console.log(user);
       // send response
@@ -85,7 +85,7 @@ module.exports = {
           password: hashedPassword,
           isAdmin,
         },
-        { where: { userId: id } },
+        { where: { id: id } },
       );
 
       console.log(updated);

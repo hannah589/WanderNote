@@ -8,11 +8,14 @@ function Footer() {
         <div className={styles.top}>
           <div className={styles.one}>
             <div>
-              <div className='flex'>
+              <div className={styles.logoContainer}>
+                {/* 
                 <img 
                   src="image"
                   className=" h-6 sm:h-12" 
-                  alt="Travel Explorer Logo" />
+                  alt="Logo" />
+                */}
+                <span className='logo-text'><p>W</p></span>
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">WanderNote</span>
               </div>
               <div className={styles.text}>
@@ -41,7 +44,7 @@ function Footer() {
             </div>
           </div>
           <div>
-            <h6>Top Destinations</h6>
+            <h4>Top Destinations</h4>
             <ul>
               <li><Link to="/destinations/japan">Japan</Link></li>
               <li><Link to="/destinations/china">China</Link></li>
@@ -52,7 +55,7 @@ function Footer() {
             </ul>
           </div>
            <div>
-            <h6>About</h6>
+            <h4>About</h4>
             <ul>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>

@@ -72,8 +72,8 @@ export const getSingleDestination = createAsyncThunk('destination/getSingleDesti
 
 // Update Destination
 export const updateDestination = createAsyncThunk('destination/updateDestination', async(destination) => {
-  console.log(`Updating Destination id: ${destination.destId}`);
-  const id = destination.destId;
+  console.log(`Updating Destination id: ${destination.id}`);
+  const id = destination.id;
   try {
     const response = await axios.put(`${destURL}/edit/${id}`, destination);
     return response.data;
@@ -135,8 +135,8 @@ const destinationSlice = createSlice({
       })
       .addCase(fetchDestinationList.rejected, (state, action) => {
         state.status = 'failed'
-        state.message = action.payload || action.error.message;
-        state.errors = action.payload || action.error.message;
+        state.message = action.error.message;
+        state.errors = action.error.message;
       })
       //  Add feedback cases.
       .addCase(addNewDestination.fulfilled, (state, action) => {
@@ -188,8 +188,7 @@ const destinationSlice = createSlice({
 export const selectAllDestinations = state => state.destination.destinationList;
 export const selectDestinationStatus = state => state.destination.status;
 export const selectDestinationError = state => state.destination.errors;
-export const selectSingleDestination = (state, id) => 
-  state.destination.destinationList.find(dest => dest.id === Number(id));
+export const selectSingleDestination = (state, id) => state.destination.destinationList.find(item => item.id === id);
 export const selectDestinationMessage = state => state.destination.message;
 
 // Export the reducer

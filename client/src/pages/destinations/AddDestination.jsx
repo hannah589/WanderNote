@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addNewDestination } from '../../slices/destinationSlice';
 // Bring in the custom validation functions
-import { alpha, is_Empty, areValidUrls } from '../../utils/validation';
+import { alpha, is_Empty } from '../../utils/validation';
+import Button from '../../components/Button';
 
 function AddDestination() {
 
   // Make use of the useNavigate hook
   const navigate = useNavigate();
+
   // Make use of the useDispatch hook
   const dispatch = useDispatch();
 
@@ -92,17 +94,6 @@ function AddDestination() {
       console.log(`image: ${defaultImage}`);
     }
 
-    //check if urls are not valid
-    if (!areValidUrls(tourismUrls)) {
-      console.log("One or more URLs are invalid");
-      setFormData({...formData, tourismUrls: { tourismUrls: "URLs must be a valid http/s"}})
-      return;
-    } else {
-      console.log("All URLs are valid");
-      //valid input, remove error msg from input
-      setFormData({...formData, errors: { tourismUrls: ""}})
-    }
-
     // Create a newDestination object
     const newDestination = {
       city,
@@ -125,154 +116,156 @@ function AddDestination() {
 
   return (
     <>
-      <div className="login-container">
-       <div className="login-box">
-        <div className="heading">
-          <h1>Add a new destination</h1>
-        </div>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label for="city">City</label>
-            <input 
-              type="city" 
-              id="city"
-              placeholder='city'
-              required
-              name='city'
-              value={city}
-              onChange={onChange}
-              className={`form-control ${errors.city ? "invalid" : "valid"}`}
-            />
-            {errors.city && 
-              <div className='error-message'>
-                {errors.city} 
+      <div className="container">
+        <div className="box">
+          <div className="heading">
+            <h3>Add destination</h3>
+          </div>
+          
+          <form onSubmit={handleSubmit}>
+            <div className='formInputs'>
+              <div className='input-group'>
+              <label htmlFor="city">City</label>
+              <input 
+                type="city" 
+                id="city"
+                placeholder='Kyoto'
+                required
+                name='city'
+                value={city}
+                onChange={onChange}
+                className={`form-control ${errors.city ? "invalid" : "valid"}`}
+              />
+              {errors.city && 
+                <div className='error-message'>
+                  {errors.city} 
+                </div>
+              }
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="country">Country</label>
+              <input 
+                type="text" 
+                id="country"
+                placeholder='Japan'
+                required
+                name='country'
+                value={country}
+                onChange={onChange}
+                className={`form-control ${errors.country ? "invalid" : "valid"}`}
+              />
+              {errors.country && 
+                <p className='error-message'>
+                  {errors.country} 
+                </p>
+              }
+            </div>
+
+
+            <div className="input-group">
+              <label htmlFor="country">Description:</label>
+              <input 
+                type="text" 
+                id="description"
+                placeholder='Description'
+                required 
+                name='description'
+                value={description}
+                onChange={onChange}
+                className={`htmlForm-control ${errors.description ? "invalid" : "valid"}`}
+              />
+              {errors.description && 
+                <p className='error-message'>
+                  {errors.description} 
+                </p>
+              }
+            </div>
+
+            <div className="input-group">
+              <label htmlFor="image">Image URL:</label>
+              <input
+                type="text"
+                id="image"
+                placeholder="https://blocks.astratic.com/img/general-img-landscape.png"
+                name="image"
+                value={image}
+                onChange={onChange}
+                className={`htmlForm-control ${errors.image ? "invalid" : "valid"}`}
+              />
+                {errors.image && (
+                  <p className="error-message">
+                    {errors.image}
+                  </p>
+                )}
               </div>
-            }
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="country">Country</label>
-            <input 
-              type="text" 
-              id="country"
-              placeholder='Japan'
-              required
-              name='country'
-              value={country}
-              onChange={onChange}
-              className={`form-control ${errors.country ? "invalid" : "valid"}`}
-            />
-            {errors.country && 
-              <p className='error-message'>
-                {errors.country} 
-              </p>
-            }
-          </div>
 
 
-          <div className="input-group">
-            <label htmlFor="country">Description:</label>
-            <input 
-              type="text" 
-              id="description"
-              placeholder='Description'
-              required 
-              name='description'
-              value={description}
-              onChange={onChange}
-              className={`htmlForm-control ${errors.description ? "invalid" : "valid"}`}
-            />
-            {errors.description && 
-              <p className='error-message'>
-                {errors.description} 
-              </p>
-            }
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="image">Image URL:</label>
-            <input
-              type="text"
-              id="image"
-              placeholder="https://blocks.astratic.com/img/general-img-landscape.png"
-              name="image"
-              value={image}
-              onChange={onChange}
-              className={`htmlForm-control ${errors.image ? "invalid" : "valid"}`}
-            />
-              {errors.image && (
-                <p className="error-message">
-                  {errors.image}
-                </p>
-              )}
+              <div className="input-group">
+              <label htmlFor="continent">Continent:</label>
+              <select  
+                id="continent"
+                required
+                name="continent"
+                value={continent}
+                onChange={onChange}
+              >
+                <option value="">Select a continent</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Africa">Africa</option>
+                <option value="North America">North America</option>
+                <option value="South America">South America</option>
+                <option value="Australia">Australia</option>
+                <option value="Antarctica">Antarctica</option>
+              </select>
             </div>
 
             <div className="input-group">
-            <label htmlFor="tourismUrls">Tourism URLs:</label>
-            <input
-              type="text"
-              id="tourismUrls"
-              placeholder="Tourism URL"
-              name="tourismUrls"
-              value={tourismUrls}
-              onChange={onChange}
-              className={`htmlForm-control ${errors.image ? "invalid" : "valid"}`}
-            />
-              {errors.tourismUrls && (
-                <p className="error-message">
-                  {errors.tourismUrls}
-                </p>
-              )}
+              <label htmlFor="category">Category:</label>
+              <select 
+                id="category"
+                required
+                name="category" 
+                value={category}
+                onChange={onChange}
+              >
+                <option value="">Select a category</option>
+                <option value="Beach">Beach</option>
+                <option value="Culture">Culture</option>
+                <option value="Adventure">Adventure</option>
+                <option value="City">City</option>
+                <option value="Nature">Nature</option>
+              </select>
             </div>
 
             <div className="input-group">
-            <label htmlFor="continent">Continent:</label>
-            <select  
-              id="continent"
-              required
-              name="continent"
-              value={continent}
-              onChange={onChange}
+              <label htmlFor="tourismUrls">Tourism URLs:</label>
+              <input
+                type="text"
+                id="tourismUrls"
+                placeholder="Tourism URL"
+                name="tourismUrls"
+                value={tourismUrls}
+                onChange={onChange}
+                className={`htmlForm-control ${errors.image ? "invalid" : "valid"}`}
+              />
+                {errors.tourismUrls && (
+                  <p className="error-message">
+                    {errors.tourismUrls}
+                  </p>
+                )}
+              </div>
+            </div>
+            
+            <Button
+              type="submit"
+              value='Add Destination'
             >
-              <option value="">Select a continent</option>
-              <option value="Asia">Asia</option>
-              <option value="Europe">Europe</option>
-              <option value="Africa">Africa</option>
-              <option value="North America">North America</option>
-              <option value="South America">South America</option>
-              <option value="Australia">Australia</option>
-              <option value="Antarctica">Antarctica</option>
-            </select>
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="category">Category:</label>
-            <select 
-              id="category"
-              required
-              name="category" 
-              value={category}
-              onChange={onChange}
-            >
-              <option value="">Select a category</option>
-              <option value="Beach">Beach</option>
-              <option value="Culture">Culture</option>
-              <option value="Adventure">Adventure</option>
-              <option value="City">City</option>
-              <option value="Nature">Nature</option>
-            </select>
-          </div>
-
-          <button
-            className="login-btn" 
-            type="submit"
-            value='Add Destination'
-          >
-            Add Destination
-          </button>
-        </form>
-      </div>
+              Add Destination
+            </Button>
+          </form>
+        </div>
       </div>
   
     </>

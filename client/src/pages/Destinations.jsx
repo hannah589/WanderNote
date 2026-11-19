@@ -19,10 +19,10 @@ function Destinations() {
   // Get destinations from API with the dispatch function
   useEffect(() => {
     dispatch(fetchDestinationList());
-  }, [dispatch]);
+  }, []);
   
   //number of destinations
-  let results = destinations.length;
+  const results = destinations.length;
 
   return (
     <>

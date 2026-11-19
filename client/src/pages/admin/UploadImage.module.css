@@ -1,0 +1,83 @@
+.uploadCard {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Card Header */
+.cardHeader {
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Card Body */
+.cardBody {
+  padding: 24px 20px;
+}
+
+/* Form */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* File Input */
+.formGroup input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #4b5563;
+  background-color: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.formGroup input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.formGroup input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+.message {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #dc2626;
+}
+
+@media (max-width: 600px) {
+  .uploadCard {
+    max-width: 100%;
+  }
+
+  .cardBody {
+    padding: 18px 16px;
+  }
+}

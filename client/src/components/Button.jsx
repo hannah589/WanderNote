@@ -3,11 +3,11 @@ import styles from "./Button.module.css";
 function Button({
   children,
   onClick,
-  type = "button",
-  variant = "primary",
-  size = "md",
-  disabled = false,
-  className = "",
+  type="button",
+  variant="primary",
+  size="md",
+  disabled=false,
+  className="",
 }) {
   const classNames = [
     styles.button,

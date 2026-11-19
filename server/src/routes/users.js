@@ -24,17 +24,19 @@ const usersController = require("../controllers/users");
 // Request: POST
 // Type: Admin route.
 // Description: This route allows the admin to add new users.
-router.post("/add", admin, usersController.createUser);
+router.post("/add", auth, admin, usersController.createUser);
 
 // name: Get All Users
 // path: /api/users/
 // Request: GET
 // Type: Admin route.
 // Description: This route allows an admin to see all users
-router.get("/", usersController.getAllUsers);
+router.get("/", auth, admin, usersController.getAllUsers);
 
+// name: Get All Users
+// path: /api/users/:id
 // get by id
-router.get("/edit/:id", auth, admin, usersController.getUserById);
+router.get("/:id", auth, admin, usersController.getUserById);
 
 // name: Edit users
 // path: /api/users/edit/:id

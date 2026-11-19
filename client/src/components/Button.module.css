@@ -5,6 +5,10 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
 }
 
 .button.disabled {
@@ -19,12 +23,11 @@
 
 }
 
-/*
 .button.primary:hover {
   background-color: black;
   color: white;
 }
-*/
+
 
 .button.secondary {
   background-color: white;
@@ -32,13 +35,11 @@
   opacity: 0.6;
 }
 
-/*
 .button.secondary:hover {
   background-color: white;
   color: white;
   border: 1px solid black;
 }
-*/
 
 .button.outline {
   background-color: transparent;
@@ -61,8 +62,8 @@
   font-weight: 600;
 }
 
-.lg {
-  padding: 1.5em 4em;
-  font-size: 18px;
+.button.lg {
+  padding: 10px 20px;
+  font-size: 14px;
   width: 100%
 }

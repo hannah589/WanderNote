@@ -13,6 +13,7 @@ const config = require('../config/config');
 
 //Create db object to store Sequelize connection, class and db models
 const db = {};
+console.log(config.db.options);
 
 //create a single instance of the sequelize connection, to connect sequelize with the db
 //this will initialize our db with configuration options in config

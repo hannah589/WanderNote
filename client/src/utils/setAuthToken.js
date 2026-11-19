@@ -5,6 +5,7 @@
 import axios from "axios";
 
 const setAuthToken = token => {
+  //remove the bottom console.log, before uploading
   console.log('setAuthToken - utils');
   // log to see if we received a token
   console.log(token);

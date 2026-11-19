@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Avatar, Dropdown, DropdownDivider, DropdownHeader, DropdownItem, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle,} from "flowbite-react";
 // import logout
@@ -6,6 +5,7 @@ import { getIsAdmin, getIsAuth, logout } from '../slices/authSlice';
 // import useDispatch
 import { useDispatch, useSelector } from 'react-redux';
 //import RetractableSearch from './RetractableSearch';
+//import ThemeToggleButton from './ThemeToggleButton';
 
 function Header({ branding }) {
   // Setup dispatch
@@ -14,7 +14,7 @@ function Header({ branding }) {
   const isAdmin = useSelector(getIsAdmin);
   const isAuth = useSelector(getIsAuth);
   
-  // Create a leave function to dispatch the logout action
+  //logout function to dispatch the logout action
   const leave = () => {
     console.log('Logout Clicked');
     dispatch(logout());
@@ -23,47 +23,49 @@ function Header({ branding }) {
   // Create some variables to store our JSX code
   // Create our admin links
   const adminLinks = (
-    <Fragment key={'2'}>
-      <li className="nav-item">
-        <Link className="nav-link" to="/add-destination">Add destination</Link>
-      </li>
-      <li className='nav-item'>
-        <Link className='nav-link' to='/admin'> Admin Dashboard</Link>
-      </li>
-    </Fragment>
+    <>
+      <DropdownItem as={Link} to='/admin'>Admin Dashboard</DropdownItem>
+    </>
   )
   // AuthLinks
   const authLinks = (
-    <Fragment key={'3'}>
-      <li className="nav-item">
-        <Link className="nav-link" onClick={leave}>Logout</Link>
-      </li>
-    </Fragment>
+    <>
+      <DropdownItem className="nav-link" onClick={leave}>Logout</DropdownItem>
+    </>
   )
   // create loginRegister links
   const loginRegisterLinks = (
-    <Fragment key={'4'}>
-      <li className="nav-item">
+    <>
+      <DropdownItem>
         <Link className="nav-link" to="/login">Login</Link>
-      </li>
-      <li className="nav-item">
+      </DropdownItem>
+      <DropdownItem>
         <Link className="nav-link" to="/signup">Register</Link>
-      </li>
-    </Fragment>
+      </DropdownItem>
+    </>
   )
 
   return (
     <>
-      <Navbar fluid rounded>
+      <Navbar fluid rounded className='navbar'>
         <NavbarBrand as={NavLink} to="/">
-          <span className="logo">{branding}</span>
+          {/* 
+          <img 
+            src="image"
+            className=" h-6 sm:h-12" 
+            alt="Logo" />
+          */}
+          <span className='logo-text'><p>W</p></span>
+          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">{branding}</span>
         </NavbarBrand>
 
         {/* User menu */}
-        <div className="flex md:order-2">
-          {/* <RetractableSearch /> */}
+        <div className="flex md:order-2 p-1">
+          {/* <RetractableSearch /> 
+             <ThemeToggleButton />
+          */}
           <Dropdown
-          className="hover:bg-transparent hover:text-inherit"
+          className="hover:bg-white hover:text-inherit"
             arrowIcon={false}
             inline
             label={
@@ -74,27 +76,25 @@ function Header({ branding }) {
               <span className="block text-sm">Bonnie Green</span>
               <span className="block truncate text-sm font-medium">name@flowbite.com</span>
             </DropdownHeader>
-            <DropdownItem>
-              {/* Admin links */}
-              { (isAdmin && isAuth) ? adminLinks : null}
-            </DropdownItem>
-            <DropdownItem>
-              {/* Auth links / normal links */}
-              { isAuth ? authLinks : loginRegisterLinks }
-            </DropdownItem>
+            {/* Admin links */}
+            { (isAdmin && isAuth) ? adminLinks : null}
+            {/* Auth links / normal links */}
+            { isAuth ? authLinks : loginRegisterLinks }
             <DropdownDivider />
-            <DropdownItem>Dark mode</DropdownItem>
           </Dropdown>
           <NavbarToggle />
         </div>
         
-        <NavbarCollapse>
+        <NavbarCollapse >
           <div className="flex gap-6">
             <NavbarLink as={NavLink} to="/destinations"
+            className='navlink'
             >
             Destinations
             </NavbarLink>
-            <NavbarLink as={NavLink} to="/favourites">
+            <NavbarLink as={NavLink} to="/favourites"
+            className='navlink'
+            >
               Favourites
             </NavbarLink>
           </div>

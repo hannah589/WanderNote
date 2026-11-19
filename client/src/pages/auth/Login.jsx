@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 // import useDispatch and login action
 import { useDispatch } from 'react-redux';
 import { login } from '../../slices/authSlice';
+//import '../login.css'
 
 function Login() {
   //set up use navigate hook
@@ -103,9 +104,13 @@ function Login() {
             </Button>
           </form>
 
-          <p className="register">
-            Don't have an account?
-            <Link to="/signup">Sign Up</Link>
+          <p>
+            Don't have an account? 
+            <Link 
+              className="link" 
+              to="/register"> 
+                Sign Up
+            </Link>
           </p>
         </div>
       </div>

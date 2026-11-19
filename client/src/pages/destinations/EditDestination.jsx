@@ -21,17 +21,18 @@ function EditDestination() {
 
   // Get single destination from Redux
   const destination = useSelector((state) => selectSingleDestination(state, id));
-  console.log('Destination:', destination);
+  console.log('EditDestination.jsx:', destination);
 
-  // Create states for form and set the initial data from the db
+  // Create states for form and set the initial data from the db. some data might have nothing. use the or blank string
   const [formData, setFormData] = useState({
-    city: destination.city,
-    country: destination.country,
-    continent: destination.continent,
-    category: destination.category,
-    description: destination.description,
-    image: destination.image,
-    tourismUrls: destination.tourismUrls,
+    id: destination?.id,
+    city: destination?.city || '',
+    country: destination?.country || '',
+    continent: destination?.continent || '',
+    category: destination?.category || '',
+    description: destination?.description || '',
+    image: destination?.image || '',
+    tourismUrls: destination?.tourismUrls || '',
     errors: {}
   });
 
@@ -59,7 +60,7 @@ function EditDestination() {
 
   const canSave = country !== '' && requestState === 'idle';
   
-  const handleSubmit = e => {
+  async function handleSubmit(e){
     e.preventDefault();
     // Check that the function is called
     console.log('HandleSubmit - EditDestination.jsx - Running');
@@ -84,15 +85,14 @@ function EditDestination() {
     // Create a newDestination object. 
     //It replace the current object in the db, to update.
     const updDestination = {
-      //destId from redux: id from the url
-      destId: id, 
+      id,
       city,
       country, 
       continent, 
       category,
       description, 
       image,
-      mUrls: tourismUrls ? [tourismUrls] : []
+      tourismUrls: tourismUrls ? [tourismUrls] : []
     }
     // Log out our new destination
     console.log(updDestination);
@@ -102,7 +102,8 @@ function EditDestination() {
       if(canSave){
         console.log('Can update.... Updating...');
         setRequestState('pending')
-        dispatch(updateDestination(updDestination)).unwrap();
+        await dispatch(updateDestination(updDestination)).unwrap();
+        navigate(`/destinations/${id}`);
       } else {
         console.log('Cannot update....');
         return;
@@ -126,7 +127,7 @@ function EditDestination() {
           </div>
         
           <form onSubmit={handleSubmit}>
-            <div style="twoCol_Input_group">
+            <div className="twoCol-inputGroup">
               <div className="input-group">
               <label for="city">City</label>
               <input 
@@ -166,7 +167,7 @@ function EditDestination() {
             </div>
           </div>
 
-          <div style="twoCol_Input_group">
+          <div className="twoCol-inputGroup">
             <div className="input-group">
               <label htmlFor="continent">Continent:</label>
               <select  

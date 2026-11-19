@@ -6,7 +6,7 @@ module.exports = {
   port: process.env.PORT,
   db:{
     database: process.env.DB_NAME,
-    username: process.env.DB_USER || 'root',
+    username: process.env.DB_USER,
     password: process.env.DB_PW,
     //db options
      //dialect - tell sequelize what db you are using 

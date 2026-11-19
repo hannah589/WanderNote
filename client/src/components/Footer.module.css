@@ -1,12 +1,20 @@
 .footer{
     width: 100%;
     padding: 2em;
+    background-color: #F6F3F2;
+   /*
     background-color: var(--color-surface-container-high);
-
+*/
     h6{
         font-size: 18px;
         padding-bottom: 16px;
+        
     }
+}
+
+.logoContainer{
+    display: flex;
+    margin-bottom: 8px;
 }
 
 .footer ul, .footer a, .footer address, .footer p {

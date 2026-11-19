@@ -11,7 +11,7 @@ function HeroSection({ title, bgImage }) {
         style={{backgroundImage: `url(${bgImage})`}}
       >
         <div className={styles.content}>
-          <h2>{title}</h2>
+          <h1>{title}</h1>
           <div>
             <SearchForm />
           </div>

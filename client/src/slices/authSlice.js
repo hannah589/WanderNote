@@ -36,14 +36,15 @@ export const login = createAsyncThunk('auth/login', async({email, password}) => 
 
       // get the user from the database. (get the logged in user)
       const res = await axios.get(`${baseURL}`);
-      console.log(res.data);
+      console.log(' AUTHSLICE - User login details:', res.data);
+      console.log('Admin value:', res.data.isAdmin);
       return res.data;
     }
   } catch (err) {
     // log errors
     console.log('Error logging in');
     console.log(err.message);
-    return err.message;
+    return err;
   }
 });
 

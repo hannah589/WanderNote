@@ -11,7 +11,7 @@ import axios from 'axios';
 
 //Create the provider to pass the state and event functions down to the components that will use them. 
 //This is done by wrapping the component tree/routes in the provider, in App.jsx.
-export const DestinationsContextProvider = ({ children }) => {
+export const DestinationsProvider = ({ children }) => {
   //create the state variable to hold the destinations list and functions to update it. The initial state is an empty db array. data in useState if, using a seed file
   const [destinationsList, setDestinationsList] = useState([]);
 
@@ -21,20 +21,22 @@ export const DestinationsContextProvider = ({ children }) => {
     console.log('Add new destination - DestinationsContextProvider.jsx', newDestination);
 
     try {
-      const res = await axios.post('http://localhost:3001/api/destinations/', newDestination);
-      console.log('Destinations added:', res.data);
-      //Add the new destination data to the current, existing list. spead operator ...array = copies the current array
-      const newList = [ ...destinationsList,res.data];
+      const res = await axios.post('http://localhost:3001/api/destinations/add', newDestination);
+
+      console.log('CONTEXT - Add Destination:', res.data);
+      //Add the new destination data to the current, existing list. use the spread operator ...array = copies the current array
       //set the new state
-      setDestinationsList(newList)
+      setDestinationsList((prevList) => [...prevList, res.data]);
+      return res.data;
     } catch (error) {
       console.error('Error adding destination:', error);
+      throw error;
     }
   };
 
   // READ/GET all
   const getAllDestinations = async () => {
-    console.log('GET all destinations - DestinationsContextProvider.jsx');
+    console.log('GET all destinations - DestinationsProvider.jsx');
 
     try {
       //get req to hit get all api endpoint
@@ -42,26 +44,30 @@ export const DestinationsContextProvider = ({ children }) => {
         'http://localhost:3001/api/destinations'
       );
       //log data to console
-      console.log('Get all destinations from API:', res.data);
+      console.log('Get all destinations:', res.data);
       //set and add all the data to the destinationList state
       setDestinationsList(res.data);
+      return res.data
     } catch (error) {
-      console.error('Error getting destinations:', error);
+      console.error('Error getting all destinations:', error);
+      throw error;
     }
   };
 
   // READ/GET by id
   const getDestinationById = async (id) => {
-    console.log('getDestinationsById - DestinationsContextProvider.jsx');
+    console.log('getDestinationsById - DestinationsProvider.jsx');
 
     try {
       const res = await axios.get(
         `http://localhost:3001/api/destinations/${id}`
       );
       console.log('Get destination by ID:', res.data);
+
       return res.data;
     } catch (error) {
       console.error('Error getting destination by id:', error);
+      throw error;
     }
   };
 
@@ -69,50 +75,75 @@ export const DestinationsContextProvider = ({ children }) => {
     console.log('getDestinationsByName - DestinationsContextProvider.jsx');
 
     try {
+      //encodeURIComponent, to contain spaces in the url
       const res = await axios.get(
-        `http://localhost:3001/api/destinations/name/${name}`
+        `http://localhost:3001/api/destinations/name/${encodeURIComponent(name)}`
       );
       console.log('Get destination by name:', res.data);
       return res.data;
     } catch (error) {
       console.error('Error getting destination by name:', error);
+      throw error;
     }
   };
 
   // UPDATE existing Destination
   const updateDestination = async (updatedDestination) => {
-    console.log('updateDestination - DestinationContextProvider.jsx', updatedDestination);
+    console.log('updateDestination - DestinationProvider.jsx', updatedDestination);
     const id = Number(updatedDestination.id);
 
     try {
-      const res = await axios.put(`http://localhost:3001/api/destinations/${id}`, updatedDestination);
+      const res = await axios.put(`http://localhost:3001/api/destinations/edit/${id}`, updatedDestination);
       console.log('Destination updated:', res.data);
 
       // Update the Destination in state
       //set the destination list to the new upadted list
       //map function to create a new array with the updated data , if id dont match use and keep the current state value
-      const newList = destinationsList.map((destination) => destination.id === id ? updatedDestination : destination)
-      
-      setDestinationsList(newList) 
+      // Update destination in the list
+      setDestinationsList((prevList) =>
+        prevList.map((destination) =>
+          Number(destination.id) === id ? res.data : destination
+        )
+      );
+
+      return res.data;
     } catch (error) {
       console.error('Error updating Destination:', error);
+      throw error;
     }
   };
 
   // DELETE Destination
   const deleteDestination = async (id) => {
+    id = Number(id);
     console.log('deleteDestination - DestinationContextProvider.jsx', id);
 
     try {
       //send request to api
-      await axios.delete(`http://localhost:3001/api/destinations/${id}`);
+      await axios.delete(`http://localhost:3001/api/destinations/delete/${id}`);
 
       // Remove Destination from state using filter to create a new array without the the product that has the matching id
-      const newList = destinationsList.filter((destination) => destination.id !== id);
-      //set new state
-      setDestinationsList(newList);
+      setDestinationsList((prevList) =>
+        prevList.filter((destination) => destination.id !== id)
+      );
     } catch (error) {
-      console.error('Error deleting Destination:', error);
+      console.error('Failed to delete destination:', error);
+      throw error;
+    }
+  };
+
+  // Search Destination
+  const searchDestinations = async (destination) => {
+    console.log('searchDestination - DestinationContextProvider.jsx', destination);
+
+    try {
+      //send request to api
+      const res = await axios.get(`http://localhost:3001/api/search/${encodeURIComponent(destination)}`);
+      console.log("Search results:", res.data);
+      return res.data;
+    } catch (error) {
+      console.error('Error searching Destination:', error);
+      throw error;
     }
   };
 
@@ -128,8 +159,8 @@ export const DestinationsContextProvider = ({ children }) => {
         getDestinationByName,
         updateDestination,
         deleteDestination,
-      }}
-    >
+        searchDestinations,
+      }}>
       {children}
     </DestinationsContext.Provider>
   );

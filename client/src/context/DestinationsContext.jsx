@@ -7,7 +7,7 @@ export const DestinationsContext = createContext();
 
 //create custom hook to use the context in our component. 
 //This allows us to access the context values without importing useContext in every component: import { useContext } from "react";
-//hook always start with use
+//hook always start with use: useDestination
 export function useDestinations(){
   //pass in the context created above
   return useContext(DestinationsContext);

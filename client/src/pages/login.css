@@ -47,10 +47,6 @@ input{
   border-radius: 5px;
 }
 
-.divider{
-  text-align: center;
-}
-
 button {
   width: 100%;
   padding: 10px;
@@ -66,12 +62,10 @@ button:hover {
   background: #0056b3;
 }
 
-.signup-text {
-  text-align: center;
-  margin-top: 15px;
-}
+.link{
+  text-decoration: underline;
 
-.signup-text a {
-  color: #007bff;
-  text-decoration: none;
+  &:hover {
+    color: #007bff;
+  }
 }

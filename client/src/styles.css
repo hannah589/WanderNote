@@ -29,6 +29,35 @@ body {
   min-height: 100vh;
 }
 
+.navbar{
+  padding: 1em 2em;
+}
+
+.navlink{
+  font-size: 15px;
+  color: var(--color-on-surface);
+}
+
+.navlink:hover{
+  color: var(--color-primary);
+   text-decoration: underline;
+  text-underline-offset: 0.6em; 
+  text-decoration-thickness: 2px;
+}
+
+.logo-text{
+  padding: 6px 12px;
+  background-color: var(--color-primary);
+  border-radius: 30%;
+  margin-right: 6px;
+
+  p{
+    color: white;
+    font-size: large;
+    font-weight: 600;
+  }
+}
+
 main {
   flex: 1;
   padding: 3em;
@@ -42,23 +71,36 @@ svg{
   stroke-width: 2;
 }
 
+.img_box{
+  border-radius: 24px;
+  overflow: hidden; 
+  position: relative;
+
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+  }
+}
+
 :root { 
   --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; 
   
   /* Font Sizes */ 
-  --font-size-h1: 3.5rem; /* 56px - Hero title */ --font-size-h2: 2.25rem; /* 36px - Page & destination main titles (e.g. "Kyoto", "Escape to the Edge...") */ 
-  --font-size-h3: 1.75rem; /* 28px - Major section headers (e.g. "Trending Destinations", "Overview") */ 
-  --font-size-h4: 1.25rem; /* 20px - Subsection headers & card titles (e.g. "Plan Your Trip", destination cards) */ 
-  --font-size-h5: 1.125rem; /* 18px - Small card headers & component titles (e.g. "Early Bird Access") */ 
-  --font-size-h6: 0.875rem; /* 14px - Subtitles, uppercase section labels & captions */ 
+  --font-size-h1: 2.25rem; /* 36px - Page & destination main titles*/ 
+  --font-size-h2: 1.75rem; /* 28px - Section headers */ 
+  --font-size-h3: 1.25rem; /* 20px - Subsection headers & card titles */ 
+  --font-size-h4: 1.125rem; /* 18px - Small card headers & component titles */ 
+  --font-size-h5: 0.875rem; /* 14px - Subtitles, uppercase section labels & captions */ 
   
   /* Line Heights */ 
-  --line-height-h1: 1.15; 
-  --line-height-h2: 1.2; 
-  --line-height-h3: 1.25; 
-  --line-height-h4: 1.35; 
-  --line-height-h5: 1.4; 
-  --line-height-h6: 1.45; 
+  --line-height-h1: 1.2; 
+  --line-height-h2: 1.25; 
+  --line-height-h3: 1.35; 
+  --line-height-h4: 1.4; 
+  --line-height-h5: 1.45; 
   
   /* Font Weights */ 
   --font-weight-light: 300; 
@@ -94,12 +136,12 @@ svg{
   --color-outline-variant: #c5c7c8;
 } 
 
-[data-theme="light"] {
+:root[data-theme="light"] {
   --text-primary: #F1F1F1;
   --text-secondary: #A8A8A8;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --text-primary: #111111;
   --text-secondary: #55555A;
 }
@@ -110,44 +152,39 @@ h2, h3, h4, h5, h6 {
 
 h1 { 
   font-size: var(--font-size-h1); line-height: var(--line-height-h1); font-weight: var(--font-weight-extrabold); letter-spacing: -0.025em;
+  color: var(--text-primary);
 }
  
 h2 { 
   font-size: var(--font-size-h2); 
-  line-height: var(--line-height-h2); 
   font-weight: var(--font-weight-bold); 
   letter-spacing: -0.02em; 
   padding-bottom: 8px;
 } 
 
 h3 { 
-  font-size: var(--font-size-h3); 
-  line-height: var(--line-height-h3); 
+  font-size: var(--font-size-h3);  
   font-weight: var(--font-weight-bold); 
   letter-spacing: -0.015em; 
-  color: #153443;
-  padding-bottom: .8em;
+  margin-bottom: 8px;
 } 
 
 h4 { 
   font-size: var(--font-size-h4); 
-  line-height: var(--line-height-h4); 
-  font-weight: var(--font-weight-semibold); 
+  font-weight: var(--font-weight-bold); 
   letter-spacing: -0.01em; 
+  margin-bottom: 8px;
 } 
 
 h5 { 
   font-size: var(--font-size-h5); 
-  line-height: var(--line-height-h5); 
-  font-weight: var(--font-weight-semibold); 
+  font-weight: 800;
 } 
 
 h6 {
   font-size: var(--font-size-h6); 
-  line-height: var(--line-height-h6); 
-  font-weight: var(--font-weight-semibold); 
+  font-weight: 800; 
   letter-spacing: 0.05em; 
-  text-transform: uppercase; 
 } 
 
 p{
@@ -181,9 +218,9 @@ section{
   padding-bottom: .4em;
 }
 }
+
+
 /*map*/
-
-
 .map-container iframe {
   width: 100%;
   height: 400px;
@@ -191,7 +228,7 @@ section{
 }
 
 /* =========================
-   Sign Up Form
+  Form
 ========================= */
 
 .form-container {
@@ -283,9 +320,9 @@ section{
   border-color: #785ffa;
 }
 
-.twoCol_Input_group{
+.twoCol-inputGroup{
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1em;
 }
 
@@ -321,7 +358,18 @@ section{
   outline-offset: 2px;
 }
 
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2em;
+}
+
 /* Login link */
+.formInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
 
 .form-box > p {
   margin: 24px 0 0;
@@ -346,11 +394,13 @@ section{
   outline-offset: 2px;
 }
 
+.link{
+  text-decoration: underline;
 
-.form-control:invalid {
-  border-color: red;
+  &:hover {
+    color: #007bff;
+  }
 }
-
 
 /* Mobile */
 

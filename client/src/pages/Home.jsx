@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
-import HeroSection from "../components/HeroSection"
+//import SearchForm from "../components/SearchForm"
+import HeroSection from "../components/HeroSection";
 import Container from '../components/Container'
 import DestinationCard from '../components/DestinationCard'
 import styles from './Home.module.css'
 import { Compass, Parasol, BuildingComplex, Landmark, MountainSnow, Trees, ArrowRight } from 'lucide-react';
+
 // Redux: useSelector and useDispatch 
 import { useSelector, useDispatch } from 'react-redux'; 
 // fetchDestinationList = gets destinations from the API
@@ -36,6 +38,9 @@ function Home() {
           (destination) =>
             destination.category === selectedCategory
         );
+
+  // Sort by most visited and only show the top 8, using the sort array. 
+  const topDestinations = [...filteredDestinations] .sort((a, b) => b.visitCount - a.visitCount) .slice(0, 8);
         
   const getPillClass = (category) =>
     `${styles.pill} ${
@@ -46,8 +51,18 @@ function Home() {
 
   return (
     <>
+    {/*
+      <div className={styles.bgImage}>
+        <div className={styles.hero}>
+          <h2>Discover places worth wandering to.</h2>
+          <div>
+            <SearchForm destinationList={destinations} />
+          </div>
+        </div>
+      </div>
+    */}
       <HeroSection 
-        title="Discover places worth wandering to."
+        title="Discover where your heart wanders."
         bgImage="https://images.unsplash.com/photo-1684325492820-63eae5bb6dd3?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       /> 
 
@@ -100,7 +115,7 @@ function Home() {
         </div>
         <Container>
           {
-            filteredDestinations.map((d)=>(
+            topDestinations.map((d)=>(
               <DestinationCard
                 key={d.id}
                 id={d.id}

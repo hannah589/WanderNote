@@ -24,17 +24,6 @@ export function alpha(value){
 
 // check if one url is valid. Must start with http/s, with 1-126 characters. 1-6 and optional path
 //doesn't accept www.example.com or word
-export function isValidUrl(value){
-  // /^ = start string
-  let ex = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-  const result = ex.test(value);
-  return result;
-}
-
-// Check if every URL in an array is valid
-export function areValidUrls(urls) {
-  return urls.every(isValidUrl);
-}
 
 //Regular expression to test we have a number of 2 decimal places
 //return true if it matches digits/ any digit with 1 or 2 decimal places
@@ -46,7 +35,7 @@ export function isValidPrice(value){
 }
 
 //password requires 8 characters, a letter and a number
-export function pwdRequirement(value){
+export function isValidPwd(value){
   //d for digit
   let ex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const result = ex.test(value);

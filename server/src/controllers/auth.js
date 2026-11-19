@@ -106,17 +106,17 @@ module.exports = {
 
   async loggedInUser(req, res) {
     try {
-      // Set up options for sending back our user with the password
+      // Set up options to remove the password when sending back the logged in user data
       const options = {
         attributes: { exclude: ["password"] },
       };
 
-      // Find the user from the userId in req.user
+      // Find the user from the id in req.user and pass in options to remove the password
       const user = await User.findByPk(req.user.id, options);
       console.log(user);
       res.status(200).json(user);
     } catch (err) {
-      internalServerError(err, res);
+      res.status(500).json({msg: 'server error', error: err.message})
     }
   },
 };

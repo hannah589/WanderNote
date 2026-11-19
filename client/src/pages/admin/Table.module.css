@@ -1,0 +1,74 @@
+/* Table Styles */
+.tableContainer {
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: white;
+  widht: 100%;
+  min-width: 0;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dataTable th {
+  background-color: #f9fafb;
+  padding: 12px 24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.dataTable td {
+  padding: 16px 24px;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #1f2937;
+}
+
+.dataTable tr:hover {
+  background-color: #f9fafb;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.textMuted {
+  color: #6b7280;
+}
+
+.actionBtnEdit {
+  background-color: #e0e7ff;
+  color: #4338ca;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+  font-size: 13px;
+}
+
+.actionBtnEdit:hover {
+  background-color: #c7d2fe;
+}
+
+.actionBtnDelete {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.actionBtnDelete:hover {
+  background-color: #fecaca;
+}
