@@ -13,7 +13,7 @@
 .destination_content{
   display: grid;
   gap: 2em;
-  grid-template-columns: 1.8fr 1.2fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .img_box{
@@ -63,4 +63,14 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@media (max-width: 1000px) {
+  .destination_content {
+    grid-template-columns: 1fr;
+  }
+
+  .img_box {
+    height: 400px;
+  }
 }

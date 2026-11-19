@@ -63,7 +63,10 @@ function UploadImage() {
 
   return (
     <>
-      <h2>Upload Hero Image</h2>
+      <div className="headingContainer">
+        <h2>Upload Hero Image</h2>
+      </div>
+      
 
       <div className={styles.uploadCard}>
         <div className={styles.cardHeader}>Choose image to upload</div>
@@ -81,9 +84,11 @@ function UploadImage() {
               {message && <p className={styles.message}>{message}</p>}
             </div>
 
-            <Button type="submit" className={styles.uploadButton}>
-              Upload Image
-            </Button>
+            <div className="btnContainer">
+              <Button type="submit">
+                Upload Image
+              </Button>
+            </div>
           </form>
         </div>
       </div>

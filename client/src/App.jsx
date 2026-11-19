@@ -17,7 +17,7 @@ import ChangeImage from "./pages/admin/ChangeImage";
 import UserAdminPage from "./pages/admin/UserAdmin/UserAdminPage";
 import EditUser from "./pages/admin/UserAdmin/EditUser";
 import DestAdminPage from "./pages/admin/DestAdmin/DestAdminPage";
-import EditDestination from "./pages/destinations/EditDestination";
+import EditDestination from "./pages/admin/DestAdmin/EditDestination";
 
 import { DestinationsProvider } from "./context/DestinationsProvider";
 import { AuthProvider } from "./context/AuthProvider";
@@ -47,16 +47,19 @@ function App() {
 
                 <Route path="/admin" element={<AdminDashboard />}>
                   {/* show default page when first visiting admin */}
-                  <Route index element={<Navigate to="upload-image" replace />} />
+                  <Route
+                    index
+                    element={<Navigate to="upload-image" replace />}
+                  />
 
                   <Route path="change-image" element={<ChangeImage />} />
                   <Route path="upload-image" element={<UploadImage />} />
 
                   <Route path="users" element={<UserAdminPage />} />
-                  <Route path="users/edit/:id" element={<EditUser />} />
+                  <Route path="users-edit/:id" element={<EditUser />} />
 
                   <Route path="dest-admin" element={<DestAdminPage />} />
-                  <Route path="dest/edit/:id" element={<EditDestination />} />
+                  <Route path="dest-edit/:id" element={<EditDestination />} />
                 </Route>
               </Route>
             </Routes>

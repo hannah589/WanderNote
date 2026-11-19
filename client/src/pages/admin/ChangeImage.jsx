@@ -24,22 +24,25 @@ function ChangeImage(){
 
   return (
     <>
-      <h2>Change Hero Image</h2>
-      <div className="input-group">
-        <label htmlFor="fileList">Select Image:</label>
-        <select id="fileList" value={image} onChange={handleChange}>
-          <option value="">--- Please select and image ---</option>
-          {imageList.map((imageName) => (
-            <option key={imageName} value={imageName}>
-              {imageName}
-            </option>
-          ))}
-        </select>
+      <div className="headingContainer">
+        <h2>Change Hero Image</h2>
       </div>
-
-      <div>
+      <div className="container">
+        <div className="input-group">
+          <label htmlFor="fileList">Select Image:</label>
+          <select id="fileList" value={image} onChange={handleChange}>
+            <option value="">--- Please select and image ---</option>
+            {imageList.map((imageName) => (
+              <option key={imageName} value={imageName}>
+                {imageName}
+              </option>
+            ))}
+          </select>
+        </div>
         <p>Image selected: {image}</p>
-        <Button onClick={changeFile}>Change Image</Button>
+        <div className="btnContainer">
+          <Button onClick={changeFile}>Change Image</Button>
+        </div>
       </div>
     </>
   );

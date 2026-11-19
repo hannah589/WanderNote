@@ -13,7 +13,7 @@ export function AdminProvider({ children }){
   //store image list in an array in the server
   const [imageList, setImageList] = useState([]) 
 
-  
+  //this works
   async function fetchImageList(){
     console.log('Getting image list')
     try {
@@ -22,6 +22,7 @@ export function AdminProvider({ children }){
       setImageList(res.data);
       return res.data
     } catch (err) {
+      console.error("Error fetching images:", err);
       return err.message
     }
   };

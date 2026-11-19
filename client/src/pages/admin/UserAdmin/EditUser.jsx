@@ -6,7 +6,6 @@ import { is_Empty } from "../../../utils/validation";
 import Button from '../../../components/Button';
 
 
-
 function EditUser() {
   // Get the id from URL
   const { id: paramId } = useParams();
@@ -116,7 +115,7 @@ function EditUser() {
         console.log("Updating user...");
         await updateUser(updUser);
         // Redirect to user table
-        navigate('/users');
+        navigate('/admin/users');
       }
     } catch (err) {
       console.log("Failed to update user", err);
@@ -206,7 +205,7 @@ function EditUser() {
 
             <div className='btnContainer'>
               <Button type="submit">
-                Edit User
+                Save Changes
               </Button>
             </div>
           </form>

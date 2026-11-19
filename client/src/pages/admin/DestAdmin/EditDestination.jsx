@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
-import { updateDestination, selectSingleDestination } from '../../slices/destinationSlice';
+import { updateDestination, selectSingleDestination } from '../../../slices/destinationSlice';
 // Bring in validation functions
-import { alpha, is_Empty } from '../../utils/validation';
-import Button from '../../components/Button'
+import { alpha, is_Empty } from '../../../utils/validation';
+import Button from '../../../components/Button'
 
 function EditDestination() {
   //get the id from the URL
@@ -105,7 +105,7 @@ function EditDestination() {
         await dispatch(updateDestination(updDestination)).unwrap();
         navigate(`/destinations/${id}`);
       } else {
-        console.log('Cannot update....');
+        console.log('Cannot update...');
         return;
       }
     } catch (err) {
@@ -114,16 +114,13 @@ function EditDestination() {
     } finally{
       setRequestState('idle');
     }
-    // After process edit, navigate back to the destination page 
-    navigate(`/destinations/${id}`);
   }
 
   return (
     <>
-      <div className="login-container">
-        <div className="login-box">
+      <div className="container">
           <div className="heading">
-            <h1>Edit Destination</h1>
+            <h2>Edit Destination</h2>
           </div>
         
           <form onSubmit={handleSubmit}>
@@ -252,17 +249,17 @@ function EditDestination() {
               onChange={onChange}
             />
             </div>
-
-            <Button 
-              className="login-btn" 
-              type="submit"
-              value='Edit Destination'
-            >
-              Edit Destination
-            </Button>
+            <div className="btnContainer">
+              <Button 
+                className="login-btn" 
+                type="submit"
+                value='Edit Destination'
+              >
+                Edit Destination
+              </Button>
+            </div>
           </form>
         </div>
-      </div>
     </>
   )
 }

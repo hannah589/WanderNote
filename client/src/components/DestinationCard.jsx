@@ -107,7 +107,7 @@ function DestinationCard({id, image, city, continent, country }) {
         (isAdmin && isAuth) &&
         <div className={styles.actions}>
           <Link 
-            to={`/admin/dest/edit/${id}`} 
+            to={`/admin/dest-edit/${id}`} 
             className={styles.btn}
           >
             <Pencil /> Edit

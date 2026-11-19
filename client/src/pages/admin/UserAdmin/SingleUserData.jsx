@@ -1,11 +1,11 @@
-// Import icons and Link 
 import { Pencil, Trash } from 'lucide-react';
-import { Link } from 'react-router';
-//delete function from api, context or redux
+import { Link, useNavigate} from 'react-router';
 import { useUser } from '../../../context/UserContext';
-import styles from "./Users.module.css";
+import styles from "../admin.module.css";
 
 function SingleUserData({ user }){
+  // Make use of the useNavigate hook
+  const navigate = useNavigate();
 
   //deconstruct delete function from userContext
   const { deleteUser } = useUser();
@@ -17,6 +17,7 @@ function SingleUserData({ user }){
 
     try {
       await deleteUser(id);
+      navigate('/admin/users');
     } catch (err) {
       console.log('Failed to delete user', err.message);
     }
@@ -48,7 +49,7 @@ function SingleUserData({ user }){
       </td>
       <td>
         {/* 26. Create the link for editing users */}
-        <Link to={`/admin/users/edit/${user.id}`}>
+        <Link to={`/admin/users-edit/${user.id}`}>
           <Pencil
             className='text-primary'
             style={{ cursor: 'pointer'}}
@@ -58,7 +59,7 @@ function SingleUserData({ user }){
       <td>
       {/* 27. Create the onClick for the delete */}
         <Trash 
-          onClick={e => onDelete(user.userId, e)}
+          onClick={() => onDelete(user.id)}
           style={{ cursor: 'pointer' }}
         />
       </td>

@@ -1,47 +1,25 @@
-
-import { useState, useEffect } from 'react';
-import { useDestinations } from '../../../context/DestinationsContext';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addNewDestination } from '../../../slices/destinationSlice';
 import { alpha, is_Empty } from '../../../utils/validation';
 import Button from '../../../components/Button';
 
-const DEFAULT_IMAGE =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5jPg3QnReJacRIIC0bdEU732tMZ1yYIDuAvospblGw&s=10';
+function AddDestination() {
 
-const initialFormData = {
-  city: '',
-  country: '',
-  continent: '',
-  category: '',
-  description: '',
-  image: '',
-  tourismUrls: '',
-};
-
-function DestForm({ data, isEditing = false, onCancel }) {
-  const { AddDestination, updateDestination } = useDestinations();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    ...initialFormData,
-    errors: {},
+    city: '',
+    country: '',
+    continent: '',
+    category: '',
+    description: '',
+    image: '',
+    tourismUrls: '',
+    errors: {}
   });
-
-  // Populate form when editing
-  useEffect(() => {
-    if (isEditing && data) {
-      setFormData({
-        city: data.city || '',
-        country: data.country || '',
-        continent: data.continent || '',
-        category: data.category || '',
-        description: data.description || '',
-        image: data.image || '',
-        tourismUrls: Array.isArray(data.tourismUrls)
-          ? data.tourismUrls.join(', ')
-          : data.tourismUrls || '',
-        errors: {},
-      });
-    }
-  }, [data, isEditing]);
 
   const {
     city,
@@ -51,11 +29,11 @@ function DestForm({ data, isEditing = false, onCancel }) {
     description,
     image,
     tourismUrls,
-    errors,
+    errors
   } = formData;
 
-  // Handle input changes
-  function onChange(e) {
+  // Update form fields
+  const onChange = e => {
     const { name, value } = e.target;
 
     setFormData(prev => ({
@@ -63,116 +41,91 @@ function DestForm({ data, isEditing = false, onCancel }) {
       [name]: value,
       errors: {
         ...prev.errors,
-        [name]: '',
-      },
+        [name]: ''
+      }
     }));
-  }
+  };
 
-  // Validate form
-  function validateForm() {
-    const newErrors = {};
+  const handleSubmit = async e => {
+    e.preventDefault();
 
+    const errors = {};
+
+    // Required field validation
     if (is_Empty(city)) {
-      newErrors.city = 'City is required.';
+      errors.city = 'The city field is required.';
     } else if (alpha(city)) {
-      newErrors.city = 'City cannot contain special characters or numbers.';
+      errors.city = 'City cannot contain any special characters.';
     }
 
     if (is_Empty(country)) {
-      newErrors.country = 'Country is required.';
-    } else if (alpha(country)) {
-      newErrors.country = 'Country cannot contain special characters or numbers.';
+      errors.country = 'The country field is required.';
     }
 
     if (is_Empty(description)) {
-      newErrors.description = 'Description is required.';
+      errors.description = 'The description field is required.';
     }
 
     if (is_Empty(continent)) {
-      newErrors.continent = 'Please select a continent.';
+      errors.continent = 'Please select a continent.';
     }
 
     if (is_Empty(category)) {
-      newErrors.category = 'Please select a category.';
+      errors.category = 'Please select a category.';
     }
 
-    return newErrors;
-  }
-
-  // Handle form submission
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    const validationErrors = validateForm();
-
-    if (Object.keys(validationErrors).length > 0) {
+    // Stop submission if validation fails
+    if (Object.keys(errors).length > 0) {
       setFormData(prev => ({
         ...prev,
-        errors: validationErrors,
+        errors
       }));
       return;
     }
 
-    // Prepare tourism URLs
-    const urls = tourismUrls
-      .split(',')
-      .map(url => url.trim())
-      .filter(Boolean);
+    // Default image
+    const defaultImage =
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5jPg3QnReJacRIIC0bdEU732tMZ1yYIDuAvospblGw&s=10';
 
-    // Prepare destination data
-    const newDestData = {
-      city: city.trim(),
-      country: country.trim(),
+    // Create destination object
+    const newDestination = {
+      city,
+      country,
+      description,
       continent,
       category,
-      description: description.trim(),
-      image: image.trim() || DEFAULT_IMAGE,
-      tourismUrls: urls,
+      image: is_Empty(image) ? defaultImage : image,
+      tourismUrls: tourismUrls ? [tourismUrls] : []
     };
 
     try {
-      if (isEditing) {
-        await updateDestination(data.id, newDestData);
-        console.log('Destination updated successfully');
-      } else {
-        await AddDestination(newDestData);
-        console.log('Destination added successfully');
-      }
-
-      // Reset form after successful submission
-      setFormData({
-        ...initialFormData,
-        errors: {},
-      });
-
-    } catch (err) {
-      console.error(
-        err.response?.data?.message || err.message
-      );
+      // Dispatch Redux action
+      await dispatch(addNewDestination(newDestination)).unwrap();
+      // Redirect after successful addition
+      navigate('/destinations');
+    } catch (error) {
+      console.error('Error adding destination:', error);
     }
-  }
+  };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-
-        <div className="heading">
-          <h2>
-            {isEditing ? 'Edit Destination' : 'Add Destination'}
-          </h2>
+    <div className="container">
+      <div className="headingContainer">
+          <h3>Add destination</h3>
         </div>
 
         <form onSubmit={handleSubmit}>
+
           <div className="formInputs">
 
-            {/* City */}
             <div className="input-group">
               <label htmlFor="city">City</label>
               <input
                 type="text"
                 id="city"
-                name="city"
                 placeholder="Kyoto"
+                required
+                name="city"
                 value={city}
                 onChange={onChange}
                 className={`form-control ${errors.city ? 'invalid' : 'valid'}`}
@@ -182,14 +135,14 @@ function DestForm({ data, isEditing = false, onCancel }) {
               )}
             </div>
 
-            {/* Country */}
             <div className="input-group">
               <label htmlFor="country">Country</label>
               <input
                 type="text"
                 id="country"
-                name="country"
                 placeholder="Japan"
+                required
+                name="country"
                 value={country}
                 onChange={onChange}
                 className={`form-control ${errors.country ? 'invalid' : 'valid'}`}
@@ -199,13 +152,14 @@ function DestForm({ data, isEditing = false, onCancel }) {
               )}
             </div>
 
-            {/* Description */}
             <div className="input-group">
               <label htmlFor="description">Description</label>
-              <textarea
+              <input
+                type="text"
                 id="description"
+                placeholder="Description"
+                required
                 name="description"
-                placeholder="Describe this destination..."
                 value={description}
                 onChange={onChange}
                 className={`form-control ${errors.description ? 'invalid' : 'valid'}`}
@@ -215,29 +169,26 @@ function DestForm({ data, isEditing = false, onCancel }) {
               )}
             </div>
 
-            {/* Image */}
             <div className="input-group">
               <label htmlFor="image">Image URL</label>
               <input
                 type="text"
                 id="image"
+                placeholder="Image URL"
                 name="image"
-                placeholder="https://example.com/image.jpg"
                 value={image}
                 onChange={onChange}
-                className="form-control"
               />
             </div>
 
-            {/* Continent */}
             <div className="input-group">
               <label htmlFor="continent">Continent</label>
               <select
                 id="continent"
+                required
                 name="continent"
                 value={continent}
                 onChange={onChange}
-                className="form-control"
               >
                 <option value="">Select a continent</option>
                 <option value="Asia">Asia</option>
@@ -253,15 +204,14 @@ function DestForm({ data, isEditing = false, onCancel }) {
               )}
             </div>
 
-            {/* Category */}
             <div className="input-group">
               <label htmlFor="category">Category</label>
               <select
                 id="category"
+                required
                 name="category"
                 value={category}
                 onChange={onChange}
-                className="form-control"
               >
                 <option value="">Select a category</option>
                 <option value="Beach">Beach</option>
@@ -275,37 +225,28 @@ function DestForm({ data, isEditing = false, onCancel }) {
               )}
             </div>
 
-            {/* Tourism URLs */}
             <div className="input-group">
               <label htmlFor="tourismUrls">Tourism URLs</label>
               <input
                 type="text"
                 id="tourismUrls"
+                placeholder="Tourism URL"
                 name="tourismUrls"
-                placeholder="https://example.com, https://example2.com"
                 value={tourismUrls}
                 onChange={onChange}
-                className="form-control"
               />
-              <small>Separate multiple URLs with commas.</small>
             </div>
 
           </div>
 
-          <Button type="submit">
-            {isEditing ? 'Update Destination' : 'Add Destination'}
-          </Button>
-
-          {onCancel && (
-            <Button type="button" onClick={onCancel}>
-              Cancel
+          <div className="btnContainer">
+            <Button type="submit" value="Add Destination">
+              Add Destination
             </Button>
-          )}
-
-        </form>
-      </div>
+          </div>
+      </form>
     </div>
   );
 }
 
-export default DestForm;
+export default AddDestination;

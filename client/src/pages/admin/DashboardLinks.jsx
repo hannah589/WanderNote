@@ -6,8 +6,8 @@ import styles from "./DashboardNav.module.css";
 const TABS = [
   { id: 1, label: "Upload Hero Image", icon: ImageUp, route: "upload-image" },
   { id: 2, label: "Change Hero Image", icon: Replace, route: "change-image"},
-  { id: 3, label: "Add User", icon: Users, route: "users" },
-  { id: 4, label: "Add Destination", icon: MapPinHouse, route: "dest-admin" },
+  { id: 3, label: "Users", icon: Users, route: "users" },
+  { id: 4, label: "Destinations", icon: MapPinHouse, route: "dest-admin" },
 ];
 
 function DashboardNavLinks(){

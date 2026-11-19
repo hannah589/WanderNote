@@ -1,3 +1,9 @@
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 .container{
   background-color: #fff;
   padding: 24px;

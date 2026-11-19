@@ -101,7 +101,7 @@ function DestinationDetails() {
               (isAdmin && isAuth) &&
               <Button className={styles.editBtn}>
                 <Link 
-                  to={`/edit/${id}`} 
+                  to={`/admin/dest-edit/${id}`} 
                   className='flex gap-2'
                 >
                   <Pencil /> Edit

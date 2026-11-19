@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useUser } from "../../../context/UserContext";
 import SingleUserData from "./SingleUserData";
-import styles from "./Users.module.css";
+import styles from "../admin.module.css";
 
 function UsersTable() {
   // get the userList state and getAllUsers from Context
@@ -11,15 +11,12 @@ function UsersTable() {
   useEffect(() => {
     getAllUsers();
   }, []);
-
   console.log('Users from context:', userList);
 
   // create the table heading for the user data.
   return (
     <>
       <div className={styles.container}>
-        <h3>Users</h3>
-
         <div className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>

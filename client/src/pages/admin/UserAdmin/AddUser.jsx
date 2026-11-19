@@ -1,12 +1,17 @@
 // import from react
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 // need action from userSlice
 import { useUser } from "../../../context/UserContext";
 // import validation
 import { is_Empty } from "../../../utils/validation";
 import Button from "../../../components/Button";
+import styles from "../admin.module.css";
 
-function AddUser() {
+function AddUser({onClose}) {
+  //use useNavigate, to navigate to another page
+  const navigate = useNavigate();
+
   //deconstruct addUser function from useUser context hook
   const { addUser } = useUser();
 
@@ -26,15 +31,18 @@ function AddUser() {
   const [loading, setLoading] = useState(false);
 
   // On Change function.
-  function onChange(e){
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  function onChange(e) {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   }
 
   // Destructure the state.
   const { firstName, lastName, email, image, password, passwordCompare, errors } = formData;
 
   // Set up, if we can save or not.
-  const canSave = firstName !== "" && email !== "" && setLoading(false);
+  const canSave = firstName !== "" && email !== "";
 
   // The handleSubmit function
   function handleSubmit(e){
@@ -117,6 +125,7 @@ function AddUser() {
       if (canSave) {
         setLoading(true)
         addUser({firstName, lastName, email, image, password});
+        navigate('/admin/users')
       }
     } catch (err) {
       console.error(err);
@@ -126,8 +135,8 @@ function AddUser() {
   };
 
   return (
-    <>
-      <h2>Add a new user</h2>
+    <div className={styles.container}>
+      <h3>Add a new user</h3>
       <div>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
@@ -223,12 +232,17 @@ function AddUser() {
             )}
           </div>
 
-          <Button type="submit" value="Add User">
-            Add User
-          </Button>
+          <div className="btnContainer">
+            <Button onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit">
+              Add User
+            </Button>
+          </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 export default AddUser;

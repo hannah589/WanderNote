@@ -12,7 +12,8 @@ export const UserProvider = ({ children }) => {
     try {
       const res = await axios.post('http://localhost:3001/api/users/add', newUserData);
       console.log('CONTEXT - Add User:', res.data);
-      setUserList((prevList) => [...prevList, res.data]);
+      const newUser = [...userList, res.data];
+      setUserList(newUser);
       return res.data;
     } catch (error) {
       console.error('Error adding User:', error);
@@ -44,11 +45,8 @@ export const UserProvider = ({ children }) => {
     console.log('getUsersById - UsersProvider.jsx');
 
     try {
-      const res = await axios.get(
-        `http://localhost:3001/api/users/${id}`
-      );
+      const res = await axios.get(`http://localhost:3001/api/users/${id}`);
       console.log('Get User by ID:', res.data);
-
       return res.data;
     } catch (error) {
       console.error('Error getting User by id:', error);
@@ -94,6 +92,11 @@ export const UserProvider = ({ children }) => {
       return res.data;
     } catch (error) {
       console.error('Error updating User:', error);
+
+       console.error('Error updating User:', error.response?.data);
+      console.error('Status:', error.response?.status);
+      console.error('Updated user:', updatedUser);
+
       throw error;
     }
   };
