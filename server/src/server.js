@@ -22,10 +22,8 @@ const adminRoutes = require('./routes/admin');
 
 //initialize express app
 const app = express();
-
-// Use MIDDLEWARE
-// Import CORS options
-const corsOptions = require("./middleware/corsOptions");
+//secure cross-origin requests and data transfers between browsers and servers
+app.use(cors());
 //helmet: It sets HTTP response headers to secure node/express apps.
 app.use(helmet());
 //cors: protect from cross-origin resources

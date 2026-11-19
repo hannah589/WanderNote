@@ -10,8 +10,8 @@ const registerSchema = Joi.object({
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().trim().email({ minDomainSegments: 2}).required(),
-  password: Joi.string.required()
+  email: Joi.string().trim().email({ minDomainSegments: 2 }).required(),
+  password: Joi.string().required()
 });
 
 
