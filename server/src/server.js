@@ -26,10 +26,6 @@ const app = express();
 app.use(cors());
 //helmet: It sets HTTP response headers to secure node/express apps.
 app.use(helmet());
-//cors: protect from cross-origin resources
-app.use(cors(corsOptions));
-//pre-flight safety check on all paths/requests to check the other server app is on
-app.options("/{*path}", cors(corsOptions));
 // This will allow the server to 'serve' the images
 app.use('/uploads', express.static('uploads'));
 //use morgan logger
