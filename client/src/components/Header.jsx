@@ -13,6 +13,8 @@ function Header({ branding }) {
   // Setup selectors
   const isAdmin = useSelector(getIsAdmin);
   const isAuth = useSelector(getIsAuth);
+  console.log('isAdmin:', isAdmin);
+  console.log('isAuth:', isAuth);
   
   //logout function to dispatch the logout action
   const leave = () => {
@@ -78,6 +80,7 @@ function Header({ branding }) {
               </div>
             }
           >
+      
             <DropdownHeader>
               <span className="block text-sm">Bonnie Green</span>
               <span className="block truncate text-sm font-medium">name@flowbite.com</span>

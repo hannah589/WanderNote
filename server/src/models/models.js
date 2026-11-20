@@ -35,37 +35,16 @@ const User = sequelize.define("User", {
   },
   firstName:{
     type: DataTypes.STRING,
-    allowNull: false, // Default is true. false = value cannot be null
-    validate: {
-      notEmpty: true,
-      len: {
-        args: [1, 50],
-        msg: "First name must be between 1-50 characters",
-      }
-    }
+    allowNull: false,
   },
   lastName:{
     type: DataTypes.STRING,
-    allowNull: false, // Default is true. false = 
-    validate: {
-      notEmpty: true,
-      len: {
-        args: [2, 50],
-        msg: "last name must be between 2-50 characters",
-      }
-    }
+    allowNull: false,
   },
   email:{
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    validate: {
-      isEmail: true, // Must be a valid email format
-      len: {
-        args: [8, 100],
-        msg: "Email must be between 8-100 characters",
-      }
-    }
   },
   image:{
     type: DataTypes.STRING,
@@ -120,19 +99,11 @@ const Destination = sequelize.define('Destination', {
   city:{
     type: DataTypes.STRING,
     allowNull: false, //required
-    unique: true, //no multiple values
-    validate:{
-      notEmpty: true,
-      len: [3, 50],
-    }
+    unique: true, //no duplicate values
   },
   country:{
     type: DataTypes.STRING,
     allowNull: false, //required
-    validate:{
-      notEmpty: true,
-      len: [3, 50],
-    }
   },
   continent:{
     type: DataTypes.ENUM("Asia", "Australia", "Europe", "Africa", "North America", "South America", "Antarctica"),
@@ -151,6 +122,10 @@ const Destination = sequelize.define('Destination', {
     type: DataTypes.JSON, 
     //to set an array data type in MySQL, SQLite, PostgreSQL, MariaDB
   },
+}, {
+  //set the same data in the Destinations table
+    tableName: 'Destinations',
+    timestamps: true
 });
 
 /*

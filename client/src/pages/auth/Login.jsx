@@ -46,9 +46,6 @@ function Login() {
     } catch (error) {
       console.log("Login failed:", error);
     }
-
-    // Redirect to homepage
-    navigate("/");
   }
 
   return (
