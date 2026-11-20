@@ -38,8 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //test: http://localhost:3001/
-app.get("/", (res) => {
-  res.status(200).send("Hello World! API is working!");
+app.get("/", (req, res) => {
+  res.status(200).send("WanderNote API is working!");
 });
 
 //routes
