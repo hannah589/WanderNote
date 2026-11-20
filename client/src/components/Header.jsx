@@ -65,16 +65,23 @@ function Header({ branding }) {
              <ThemeToggleButton />
           */}
           <Dropdown
-          className="hover:bg-white hover:text-inherit"
+            className="user-dropdown"
             arrowIcon={false}
             inline
             label={
-              <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+              <div className="avatar-trigger">
+                <Avatar
+                  alt="User settings"
+                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  rounded
+                />
+              </div>
             }
           >
             <DropdownHeader>
               <span className="block text-sm">Bonnie Green</span>
               <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+              <DropdownDivider className='divider'/>
             </DropdownHeader>
             {/* Admin links */}
             { (isAdmin && isAuth) ? adminLinks : null}
@@ -85,7 +92,7 @@ function Header({ branding }) {
           <NavbarToggle />
         </div>
         
-        <NavbarCollapse >
+        <NavbarCollapse className="headerLinks">
           <div className="flex gap-6">
             <NavbarLink as={NavLink} to="/destinations"
             className='navlink'

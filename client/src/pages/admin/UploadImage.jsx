@@ -1,65 +1,58 @@
-import { useState } from "react";
-import axios from "axios";
-import { useAdmin } from "../../context/AdminContext";
+import { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { fetchImageList} from '../../slices/adminSlice';
 import Button from "../../components/Button";
 import styles from "./UploadImage.module.css";
 
-function UploadImage() {
-  //fetchImage list from Admin Context
-  const { fetchImageList } = useAdmin();
-
-  //set state for selected image and error/success message
+function UploadImage(){
+  //fetchImageList from Admin Context
+  // set state fpr selected image and for message.
   const [selectedFile, setSelectedFile] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
-  function handleFileChange(e) {
+  const dispatch = useDispatch();
+
+  function handleFileChange(e){
     // Get the first file in the array
     console.log(e.target.files[0]);
     setSelectedFile(e.target.files[0]);
-    setMessage("");
+    setMessage('');
   }
 
-  //handle upload image to server
-  async function handleUpload(e) {
+  const handleUpload = async (e) => {
+    // prevent default.
     e.preventDefault();
-    console.log("handleUpload - UploadImage.jsx");
+    console.log('handleUpload - UploadImage.jsx');
 
-    // if no file selected, return msg
-    if (!selectedFile) {
-      setMessage("Please select an image");
-      return;
-    }
-
-    //set up form data
+    // Set up formData.
     const formData = new FormData();
-    // Add name of the file
+    // Add in the name of a file
     // Append takes in a string and a blob.
-    formData.append("name", selectedFile.name);
-    formData.append("file", selectedFile);
+    formData.append('name', selectedFile.name);
+    formData.append('file', selectedFile);
     // log out variables
     console.log(formData);
-    console.log(selectedFile.name);
+    console.log(selectedFile.name)
     console.log(selectedFile);
-
     // set up the base url
-    const url = "http://localhost:3001/api/admin/uploadImage";
+    const url = 'http://localhost:3001/api/admin/uploadImage';
 
     try {
       // multer requires content of multipart/form-data
       // set up request
       const res = await axios.post(url, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-        },
+          'Content-Type': 'multipart/form-data'
+        }
       });
-      setMessage(res.data.message || "Image uploaded successfully");
-
-      fetchImageList();
+      setMessage(res.data.message || 'Image uploaded successfully');
+      dispatch(fetchImageList());
     } catch (err) {
-      setMessage("Upload image failed");
-      console.log("Error uploading:", err.message);
+      setMessage('Upload image failed');
+      console.log('Error uploading', err.message);
     }
-  }
+  } 
 
   return (
     <>
@@ -79,7 +72,7 @@ function UploadImage() {
                 type="file"
                 id="selectedFile"
                 accept="image/*"
-                onChange={handleFileChange}
+                onChange={e => handleFileChange(e)}
               />
               {message && <p className={styles.message}>{message}</p>}
             </div>

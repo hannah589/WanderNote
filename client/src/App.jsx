@@ -22,49 +22,45 @@ import EditDestination from "./pages/admin/DestAdmin/EditDestination";
 import { DestinationsProvider } from "./context/DestinationsProvider";
 import { AuthProvider } from "./context/AuthProvider";
 import { UserProvider } from "./context/UserProvider";
-import { AdminProvider } from "./context/AdminProvider";
 
 //context provider to manage state. wrap the context provider around the application, to allow children access to the context
 function App() {
   return (
     <AuthProvider>
       <UserProvider>
-        <AdminProvider>
-          <DestinationsProvider>
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/destinations" element={<Destinations />} />
-                <Route
-                  path="/destinations/:id"
-                  element={<DestinationDetails />}
+        <DestinationsProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/destinations" element={<Destinations />} />
+              <Route
+                path="/destinations/:id"
+                element={<DestinationDetails />}
+              />
+              <Route path="/favourites" element={<Favourites />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<SignUp />} />
+              <Route path="/sitemap" element={<SiteMap />} />
+              <Route path="*" element={<NotFound />} />
+
+              <Route path="/admin" element={<AdminDashboard />}>
+                {/* show default page when first visiting admin */}
+                <Route index
+                  element={<Navigate to="upload-image" replace />}
                 />
-                <Route path="/favourites" element={<Favourites />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<SignUp />} />
-                <Route path="/sitemap" element={<SiteMap />} />
-                <Route path="*" element={<NotFound />} />
 
-                <Route path="/admin" element={<AdminDashboard />}>
-                  {/* show default page when first visiting admin */}
-                  <Route
-                    index
-                    element={<Navigate to="upload-image" replace />}
-                  />
+                <Route path="change-image" element={<ChangeImage />} />
+                <Route path="upload-image" element={<UploadImage />} />
 
-                  <Route path="change-image" element={<ChangeImage />} />
-                  <Route path="upload-image" element={<UploadImage />} />
+                <Route path="users" element={<UserAdminPage />} />
+                <Route path="users-edit/:id" element={<EditUser />} />
 
-                  <Route path="users" element={<UserAdminPage />} />
-                  <Route path="users-edit/:id" element={<EditUser />} />
-
-                  <Route path="dest-admin" element={<DestAdminPage />} />
-                  <Route path="dest-edit/:id" element={<EditDestination />} />
-                </Route>
+                <Route path="dest-admin" element={<DestAdminPage />} />
+                <Route path="dest-edit/:id" element={<EditDestination />} />
               </Route>
-            </Routes>
-          </DestinationsProvider>
-        </AdminProvider>
+            </Route>
+          </Routes>
+        </DestinationsProvider>
       </UserProvider>
     </AuthProvider>
   );

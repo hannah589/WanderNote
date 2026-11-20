@@ -2,7 +2,7 @@ import styles from './HeroSection.module.css';
 import SearchForm from './SearchForm';
 
 
-function HeroSection({ title, bgImage }) {
+function HeroSection({ title, subtitle, bgImage }) {
 
   return (
     <>
@@ -12,6 +12,7 @@ function HeroSection({ title, bgImage }) {
       >
         <div className={styles.content}>
           <h1>{title}</h1>
+          <p>{subtitle}</p>
           <div>
             <SearchForm />
           </div>

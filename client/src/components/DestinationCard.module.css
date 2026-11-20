@@ -71,11 +71,11 @@
   }
 
   svg{
-    flex: 0 0 24px;
-    color: #72787C;
-    flex-shrink: 0;
-    margin-right: 8px;
-    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    
+    margin-right: 6px;
+    margin-top: 4px;
   }
 }
 

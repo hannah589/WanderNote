@@ -52,7 +52,7 @@ function EditDestination() {
   const { city, country, continent, category, description, image, tourismUrls, errors } = formData;
 
   //track change from form fields
-  const onChange = e => {
+  function onChange(e){
     setFormData({
       ...formData, [e.target.name]: e.target.value}
     );
@@ -92,7 +92,10 @@ function EditDestination() {
       category,
       description, 
       image,
-      tourismUrls: tourismUrls ? [tourismUrls] : []
+      tourismUrls: tourismUrls
+      .split('\n')
+      .map(url => url.trim())
+      .filter(url => url !== '')
     }
     // Log out our new destination
     console.log(updDestination);

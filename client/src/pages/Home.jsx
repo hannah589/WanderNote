@@ -32,14 +32,14 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const filteredDestinations =
-    selectedCategory === "all"
-      ? destinations
-      : destinations.filter(
-          (destination) =>
-            destination.category === selectedCategory
-        );
+  selectedCategory === "all"
+    ? destinations
+    : destinations.filter(
+        (destination) =>
+          destination.category?.toLowerCase() === selectedCategory
+      );
 
-  // Sort by most visited and only show the top 8, using the sort array. 
+  //sort by most visited and only show the top 8, using the sort array. 
   const topDestinations = [...filteredDestinations] .sort((a, b) => b.visitCount - a.visitCount) .slice(0, 8);
         
   const getPillClass = (category) =>
@@ -62,7 +62,8 @@ function Home() {
       </div>
     */}
       <HeroSection 
-        title="Discover where your heart wanders."
+        title="Find your next place to wander."
+        subtitle="Search destinations, save your favourite places and keep all your travel notes in one place."
         bgImage="https://images.unsplash.com/photo-1684325492820-63eae5bb6dd3?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       /> 
 

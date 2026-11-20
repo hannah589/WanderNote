@@ -94,7 +94,7 @@ function DestinationCard({id, image, city, continent, country }) {
           <div>
             <p>{continent}</p>
           <div className={styles.cardHeading}>
-            <MapPin size={24}/>
+            <MapPin size={32} />
             <h3>{city}, {country}</h3>
           </div>
           </div>

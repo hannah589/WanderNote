@@ -6,7 +6,6 @@ import { alpha, is_Empty } from '../../../utils/validation';
 import Button from '../../../components/Button';
 
 function AddDestination() {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -21,6 +20,7 @@ function AddDestination() {
     errors: {}
   });
 
+  //deconstruct the form state
   const {
     city,
     country,
@@ -32,21 +32,15 @@ function AddDestination() {
     errors
   } = formData;
 
-  // Update form fields
-  const onChange = e => {
-    const { name, value } = e.target;
+  //track change from form fields
+  function onChange(e){
+    setFormData({
+      ...formData, [e.target.name]: e.target.value}
+    );
+  }
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-      errors: {
-        ...prev.errors,
-        [name]: ''
-      }
-    }));
-  };
-
-  const handleSubmit = async e => {
+  //handle submit function
+  async function handleSubmit(e){
     e.preventDefault();
 
     const errors = {};
@@ -85,7 +79,7 @@ function AddDestination() {
 
     // Default image
     const defaultImage =
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5jPg3QnReJacRIIC0bdEU732tMZ1yYIDuAvospblGw&s=10';
+      'https://images.pexels.com/photos/102159/pexels-photo-102159.jpeg';
 
     // Create destination object
     const newDestination = {
@@ -131,7 +125,7 @@ function AddDestination() {
                 className={`form-control ${errors.city ? 'invalid' : 'valid'}`}
               />
               {errors.city && (
-                <p className="error-message">{errors.city}</p>
+                <p className={errors.city ? "inputError" : ""}>{errors.city}</p>
               )}
             </div>
 
@@ -148,7 +142,7 @@ function AddDestination() {
                 className={`form-control ${errors.country ? 'invalid' : 'valid'}`}
               />
               {errors.country && (
-                <p className="error-message">{errors.country}</p>
+                <p className={errors.country ? "inputError" : ""}>{errors.country}</p>
               )}
             </div>
 
@@ -165,7 +159,7 @@ function AddDestination() {
                 className={`form-control ${errors.description ? 'invalid' : 'valid'}`}
               />
               {errors.description && (
-                <p className="error-message">{errors.description}</p>
+                <p className={errors.description ? "inputError" : ""}>{errors.description}</p>
               )}
             </div>
 
@@ -200,7 +194,7 @@ function AddDestination() {
                 <option value="Antarctica">Antarctica</option>
               </select>
               {errors.continent && (
-                <p className="error-message">{errors.continent}</p>
+                <p className={errors.continent ? "inputError" : ""}>{errors.continent}</p>
               )}
             </div>
 
@@ -221,7 +215,7 @@ function AddDestination() {
                 <option value="Nature">Nature</option>
               </select>
               {errors.category && (
-                <p className="error-message">{errors.category}</p>
+                <p className={errors.category ? "inputError" : ""}>{errors.category}</p>
               )}
             </div>
 

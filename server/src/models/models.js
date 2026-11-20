@@ -120,7 +120,7 @@ const Destination = sequelize.define('Destination', {
   city:{
     type: DataTypes.STRING,
     allowNull: false, //required
-    unique: true,
+    unique: true, //no multiple values
     validate:{
       notEmpty: true,
       len: [3, 50],
@@ -129,7 +129,6 @@ const Destination = sequelize.define('Destination', {
   country:{
     type: DataTypes.STRING,
     allowNull: false, //required
-    unique: true,
     validate:{
       notEmpty: true,
       len: [3, 50],
@@ -146,7 +145,7 @@ const Destination = sequelize.define('Destination', {
   },
   image: {
     type: DataTypes.STRING,
-    defaultValue: "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image-768x576.png",
+    defaultValue: "https://images.pexels.com/photos/102159/pexels-photo-102159.jpeg",
   },
   tourismUrls: {
     type: DataTypes.JSON, 

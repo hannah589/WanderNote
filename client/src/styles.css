@@ -31,6 +31,7 @@ body {
 
 .navbar{
   padding: 1em 2em;
+  position: relative;
 }
 
 .navlink{
@@ -38,15 +39,22 @@ body {
   color: var(--color-on-surface);
 }
 
+.headerLinks {
+  position: absolute !important;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 24px;
+  width: max-content !important;
+}
+
 .navlink:hover{
   color: var(--color-primary);
    text-decoration: underline;
   text-underline-offset: 0.6em; 
   text-decoration-thickness: 2px;
-}
-
-.headerLinks{
-  padding-right: 9em;
 }
 
 .logo-text{
@@ -238,7 +246,6 @@ section{
   margin-bottom: 1em;
 }
 
-
 /*map*/
 .map-container iframe {
   width: 100%;
@@ -271,6 +278,43 @@ section{
 }
 
 /* Header */
+
+/* Avatar hover */
+.avatar-trigger {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.avatar-trigger:hover {
+  background: #f3f4f6;
+}
+
+/* Dropdown content */
+.user-dropdown {
+  padding: 8px;
+}
+
+/* Dropdown menu items */
+.user-dropdown a,
+.user-dropdown button {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+/* Hover effect */
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background-color: #f3f4f6;
+  color: var(--color-primary);
+}
+
+.divider{
+  margin-top: 6px;
+}
 
 .form-box > div:first-child {
   text-align: center;
@@ -343,6 +387,52 @@ section{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
+}
+
+/* Form input error  */
+/* Invalid input */
+.form-control.invalid {
+  border: 1px solid #dc2626;
+  background-color: #fffafa;
+}
+
+/* Error message */
+.errorMessage {
+  color: #dc2626;
+  font-size: 13px;
+  margin: 6px 0 0;
+  font-weight: 400;
+}
+
+/* Input group */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Select fields */
+.input-group select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* Invalid select */
+.input-group select.invalid {
+  border-color: #dc2626;
+}
+
+/* Focus select */
+.input-group select:focus {
+  outline: none;
+  border-color: #2563eb;
 }
 
 /* Submit button */

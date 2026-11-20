@@ -1,10 +1,14 @@
 // import useState, useSelector, useDispatch
 import { useState } from "react";
-import { useAdmin } from "../../context/AdminContext";
+import { useSelector, useDispatch } from "react-redux";
+// import selectImageList and fetchImageURL
+import { selectImageList, fetchImageURL } from "../../slices/adminSlice";
 import Button from "../../components/Button";
 
 function ChangeImage(){
-  const { imageList, fetchImageURL } = useAdmin();
+  // set up useSelector and useDispatch.
+  const dispatch = useDispatch();
+  const imageList = useSelector(selectImageList);
 
   // State to store image selected
   const [image, setImage] = useState("");
@@ -19,7 +23,7 @@ function ChangeImage(){
     e.preventDefault();
     console.log("Change File...");
     console.log(image);
-    fetchImageURL(image);
+    dispatch(fetchImageURL(image));
   }
 
   return (

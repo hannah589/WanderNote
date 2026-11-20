@@ -12,14 +12,12 @@ import { Provider } from 'react-redux';
 import { store } from './store/store.js';
 // import needed selectors.
 import { fetchDestinationList } from './slices/destinationSlice.js';
-import { fetchUserList  } from './slices/userSlice.js'
 import { fetchImageList, setImage } from './slices/adminSlice.js';
 import { loadUser } from './slices/authSlice.js';
 import setAuthToken from './utils/setAuthToken.js';
 
 // Fetch the Products from the api.
 store.dispatch(fetchDestinationList());
-store.dispatch(fetchUserList());
 store.dispatch(fetchImageList());
 
 // Check if there is a token in localStorage
