@@ -1,2 +1,2 @@
 # WanderNote
-A full-stack travel destination discovery app for exploring places around the world and saving personal notes.
+A full-stack travel discovery app for exploring destinations and saving personal travel notes. Built with React, Node.js, Express and MySQL.
