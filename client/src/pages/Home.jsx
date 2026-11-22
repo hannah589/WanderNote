@@ -14,23 +14,46 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectAllDestinations, fetchDestinationList } from '../slices/destinationSlice';
 
 function Home() {
+  //state for category selection
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   // useDispatch lets us send actions to Redux
   const dispatch = useDispatch();
 
   // Get all destinations from the Redux selector state
   const destinations = useSelector(selectAllDestinations);
+  // to see redux loading, idle states etc.
+  const status = useSelector((state) => state.destination.status);
+  //to see redux errors
+  const error = useSelector((state) => state.destination.error);
   console.log("Destinations:", destinations);
-
 
   // Get destinations from API with the dispatch function
   useEffect(() => {
     dispatch(fetchDestinationList());
   }, [dispatch]);
 
-  //state for category selection
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  // Display redux loading message while fetching destinations
+  if (status === 'loading') {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
+        <p>Loading destinations...</p>
+      </div>
+    );
+  }
 
+  // Display redux error if fetching destinations fails
+  if (status === 'failed') {
+    return (
+      <div className={styles.loading}>
+        <p>Unable to load destinations.</p>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  //filter category based off the category field, in the destinations database
   const filteredDestinations =
   selectedCategory === "all"
     ? destinations

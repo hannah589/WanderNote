@@ -8,6 +8,7 @@ import { DestinationsContext } from "./DestinationsContext.jsx";
 //axios sends HTTP request from web browser/node.js to server. Handles the api data
 import axios from 'axios';
 
+const destURL = `${import.meta.env.VITE_API_URL}/destinations`;
 
 //Create the provider to pass the state and event functions down to the components that will use them. 
 //This is done by wrapping the component tree/routes in the provider, in App.jsx.
@@ -21,7 +22,7 @@ export const DestinationsProvider = ({ children }) => {
     console.log('Add new destination - DestinationsContextProvider.jsx', newDestination);
 
     try {
-      const res = await axios.post('http://localhost:3001/api/destinations/add', newDestination);
+      const res = await axios.post(`${destURL}/add`, newDestination);
 
       console.log('CONTEXT - Add Destination:', res.data);
       //Add the new destination data to the current, existing list. use the spread operator ...array = copies the current array
@@ -40,9 +41,7 @@ export const DestinationsProvider = ({ children }) => {
 
     try {
       //get req to hit get all api endpoint
-      const res = await axios.get(
-        'http://localhost:3001/api/destinations'
-      );
+      const res = await axios.get(destURL);
       //log data to console
       console.log('Get all destinations:', res.data);
       //set and add all the data to the destinationList state
@@ -60,7 +59,7 @@ export const DestinationsProvider = ({ children }) => {
 
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/destinations/${id}`
+        `${destURL}/add/${id}`
       );
       console.log('Get destination by ID:', res.data);
 
@@ -77,7 +76,7 @@ export const DestinationsProvider = ({ children }) => {
     try {
       //encodeURIComponent, to contain spaces in the url
       const res = await axios.get(
-        `http://localhost:3001/api/destinations/name/${encodeURIComponent(name)}`
+        `${destURL}/name/${encodeURIComponent(name)}`
       );
       console.log('Get destination by name:', res.data);
       return res.data;
@@ -93,7 +92,7 @@ export const DestinationsProvider = ({ children }) => {
     const id = Number(updatedDestination.id);
 
     try {
-      const res = await axios.put(`http://localhost:3001/api/destinations/edit/${id}`, updatedDestination);
+      const res = await axios.put(`${destURL}/edit/${id}`, updatedDestination);
       console.log('Destination updated:', res.data);
 
       // Update the Destination in state
@@ -120,7 +119,7 @@ export const DestinationsProvider = ({ children }) => {
 
     try {
       //send request to api
-      await axios.delete(`http://localhost:3001/api/destinations/delete/${id}`);
+      await axios.delete(`${destURL}/delete/${id}`);
 
       // Remove Destination from state using filter to create a new array without the the product that has the matching id
       setDestinationsList((prevList) =>
@@ -138,7 +137,7 @@ export const DestinationsProvider = ({ children }) => {
 
     try {
       //send request to api
-      const res = await axios.get(`http://localhost:3001/api/search/${encodeURIComponent(destination)}`);
+      const res = await axios.get(`${destURL}/search/${encodeURIComponent(destination)}`);
       console.log("Search results:", res.data);
       return res.data;
     } catch (error) {

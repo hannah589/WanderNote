@@ -14,7 +14,8 @@ import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 // Import axios to make API Calls.
 import axios from 'axios';
 // Create a variable to store our base URL for requests
-const destURL = 'http://localhost:3001/api/destinations';
+// 'http://localhost:3001/api/destinations';
+const destURL = `${import.meta.env.VITE_API_URL}/destinations`;
 
 // Set the initial state
 const initialState = {

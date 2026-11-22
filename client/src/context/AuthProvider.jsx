@@ -5,7 +5,8 @@ import setAuthToken from '../utils/setAuthToken';
 //import context define in context
 import { AuthContext } from "./AuthContext"
 
-const baseURL = 'http://localhost:3001/api/auth';
+// access the server: 'http://localhost:3001/api/auth';
+const baseURL = `${import.meta.env.VITE_API_URL}/auth`;
 
 export function AuthProvider({ children }){
   const [user, setUser] = useState(null) 
@@ -34,7 +35,7 @@ export function AuthProvider({ children }){
         setAuthToken(response.data.token);
         setToken(response.data.token);
 
-        const res = await axios.get(`${baseURL}`);
+        const res = await axios.get(baseURL);
 
         setUser(res.data);
         setIsAuth(true);
@@ -60,7 +61,7 @@ export function AuthProvider({ children }){
   // Load User
   async function loadUser(){
     try {
-      const res = await axios.get(`${baseURL}`);
+      const res = await axios.get(baseURL);
 
       setUser(res.data);
       setIsAuth(true);

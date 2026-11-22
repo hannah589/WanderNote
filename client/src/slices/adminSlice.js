@@ -6,8 +6,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
-// create the base admin url
-const adminURL = 'http://localhost:3001/api/admin';
+// create the base admin url: 'http://localhost:3001/api/admin';
+const adminURL = `${import.meta.env.VITE_API_URL}/admin`;
 
 // Initial State
 const initialState = {

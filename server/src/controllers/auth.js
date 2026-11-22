@@ -10,9 +10,13 @@ module.exports = {
       // Destructure req.body.
       const { email, password } = req.body;
 
+      console.log("LOGIN CONTROLLER REACHED");
+      console.log("Request body:", req.body);
+
       // First thing is we want to see if the user is in the database
       let user = await User.findOne({ where: { email: email } });
       // if the user is not there, send a message back
+      console.log('User found:', !!user);
       // We keep the message general for security reasons
       if (!user) {
         return res.status(400).json({ msg: "Invalid Credentials" });
@@ -20,6 +24,9 @@ module.exports = {
 
       // Use bcrypt to check to see if the entered password matches the password in the database
       const isMatch = await bcrypt.compare(password, user.password);
+
+      console.log('Password matches:', isMatch);
+      console.log('Admin status:', user.isAdmin);
       // Send back a message if the password does not match
       if (!isMatch) {
         return res.status(400).json({ msg: "Invalid Credentials" });

@@ -3,8 +3,8 @@ import axios from 'axios';
 // Import setAuthToken function
 import setAuthToken from '../utils/setAuthToken';
 
-// Create base URL
-const baseURL = 'http://localhost:3001/api/auth';
+// Create base URL: 'http://localhost:3001/api/auth';
+const baseURL = `${import.meta.env.VITE_API_URL}/auth`
 
 // Create initial state for auth
 const initialState = {
