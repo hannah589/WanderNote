@@ -39,7 +39,7 @@ function App() {
               />
               <Route path="/favourites" element={<Favourites />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<SignUp />} />
+              <Route path="/signup" element={<SignUp />} />
               <Route path="/sitemap" element={<SiteMap />} />
               <Route path="*" element={<NotFound />} />
 
