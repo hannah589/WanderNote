@@ -96,7 +96,7 @@ function DestinationDetails() {
           </div>
             
           <div className={styles.btnContainer}>
-            <Button>Save a note for your visit</Button>
+            <Button>Save a note for your next visit</Button>
             {
               (isAdmin && isAuth) &&
               <Button className={styles.editBtn}>

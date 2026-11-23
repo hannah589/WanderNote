@@ -81,11 +81,12 @@ function Header({ branding }) {
             }
           >
       
-            <DropdownHeader>
+            {/*<DropdownHeader>
               <span className="block text-sm">Bonnie Green</span>
               <span className="block truncate text-sm font-medium">name@flowbite.com</span>
               <DropdownDivider className='divider'/>
             </DropdownHeader>
+            */}
             {/* Admin links */}
             { (isAdmin && isAuth) ? adminLinks : null}
             {/* Auth links / normal links */}
